@@ -5,20 +5,18 @@
   xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
   xsi:type="MailApp">
 
-  <!-- VERVANG JOUWGEBRUIKERSNAAM door jouw GitHub gebruikersnaam -->
-
   <Id>613FE471-A2B8-470C-888D-7C8B37C20F91</Id>
   <Version>1.0.0</Version>
   <ProviderName>Ruben</ProviderName>
   <DefaultLocale>nl-NL</DefaultLocale>
   <DisplayName DefaultValue="Kantoordag"/>
   <Description DefaultValue="Maak snel een Kantoordag afspraak aan"/>
-  <IconUrl DefaultValue="https://JOUWGEBRUIKERSNAAM.github.io/kantoordag-addin/icon32.png"/>
-  <HighResolutionIconUrl DefaultValue="https://JOUWGEBRUIKERSNAAM.github.io/kantoordag-addin/icon80.png"/>
-  <SupportUrl DefaultValue="https://github.com/JOUWGEBRUIKERSNAAM/kantoordag-addin"/>
+  <IconUrl DefaultValue="https://rsmits-9775.github.io/kantoordag-addin/icon32.png"/>
+  <HighResolutionIconUrl DefaultValue="https://rsmits-9775.github.io/kantoordag-addin/icon80.png"/>
+  <SupportUrl DefaultValue="https://github.com/rsmits-9775/kantoordag-addin"/>
 
   <AppDomains>
-    <AppDomain>https://JOUWGEBRUIKERSNAAM.github.io</AppDomain>
+    <AppDomain>https://rsmits-9775.github.io</AppDomain>
   </AppDomains>
 
   <Hosts>
@@ -34,7 +32,7 @@
   <FormSettings>
     <Form xsi:type="ItemRead">
       <DesktopSettings>
-        <SourceLocation DefaultValue="https://JOUWGEBRUIKERSNAAM.github.io/kantoordag-addin/taskpane.html"/>
+        <SourceLocation DefaultValue="https://rsmits-9775.github.io/kantoordag-addin/taskpane.html"/>
         <RequestedHeight>300</RequestedHeight>
       </DesktopSettings>
     </Form>
@@ -83,13 +81,13 @@
     </Hosts>
     <Resources>
       <bt:Images>
-        <bt:Image id="Icon.16x16" DefaultValue="https://JOUWGEBRUIKERSNAAM.github.io/kantoordag-addin/icon16.png"/>
-        <bt:Image id="Icon.32x32" DefaultValue="https://JOUWGEBRUIKERSNAAM.github.io/kantoordag-addin/icon32.png"/>
-        <bt:Image id="Icon.80x80" DefaultValue="https://JOUWGEBRUIKERSNAAM.github.io/kantoordag-addin/icon80.png"/>
+        <bt:Image id="Icon.16x16" DefaultValue="https://rsmits-9775.github.io/kantoordag-addin/icon16.png"/>
+        <bt:Image id="Icon.32x32" DefaultValue="https://rsmits-9775.github.io/kantoordag-addin/icon32.png"/>
+        <bt:Image id="Icon.80x80" DefaultValue="https://rsmits-9775.github.io/kantoordag-addin/icon80.png"/>
       </bt:Images>
       <bt:Urls>
-        <bt:Url id="Commands.Url" DefaultValue="https://JOUWGEBRUIKERSNAAM.github.io/kantoordag-addin/commands.html"/>
-        <bt:Url id="Taskpane.Url" DefaultValue="https://JOUWGEBRUIKERSNAAM.github.io/kantoordag-addin/taskpane.html"/>
+        <bt:Url id="Commands.Url" DefaultValue="https://rsmits-9775.github.io/kantoordag-addin/commands.html"/>
+        <bt:Url id="Taskpane.Url" DefaultValue="https://rsmits-9775.github.io/kantoordag-addin/taskpane.html"/>
       </bt:Urls>
       <bt:ShortStrings>
         <bt:String id="GroupLabel" DefaultValue="Agenda"/>
