@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kantoordag</title>
+  <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background: #f3f2f1;
+      padding: 16px;
+      min-height: 100vh;
+    }
+
+    .card {
+      background: white;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+      border-bottom: 2px solid #0078d4;
+      padding-bottom: 12px;
+    }
+
+    .header-icon {
+      font-size: 22px;
+    }
+
+    h2 {
+      font-size: 15px;
+      font-weight: 600;
+      color: #0078d4;
+    }
+
+    label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: #323130;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    input[type="date"] {
+      width: 100%;
+      padding: 8px 10px;
+      font-size: 14px;
+      border: 1px solid #8a8886;
+      border-radius: 4px;
+      margin-bottom: 18px;
+      color: #323130;
+      background: white;
+    }
+
+    input[type="date"]:focus {
+      outline: none;
+      border-color: #0078d4;
+      box-shadow: 0 0 0 2px rgba(0,120,212,0.2);
+    }
+
+    .info-box {
+      background: #eff6fc;
+      border-left: 3px solid #0078d4;
+      border-radius: 0 4px 4px 0;
+      padding: 10px 12px;
+      margin-bottom: 18px;
+      font-size: 12px;
+      color: #004578;
+      line-height: 1.5;
+    }
+
+    .info-box strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    button {
+      width: 100%;
+      background: #0078d4;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    button:hover {
+      background: #106ebe;
+    }
+
+    button:active {
+      background: #005a9e;
+    }
+
+    #status {
+      margin-top: 14px;
+      padding: 10px;
+      border-radius: 4px;
+      font-size: 13px;
+      display: none;
+      line-height: 1.4;
+    }
+
+    #status.success {
+      background: #dff6dd;
+      color: #107c10;
+      border: 1px solid #107c10;
+      display: block;
+    }
+
+    #status.error {
+      background: #fde7e9;
+      color: #a80000;
+      border: 1px solid #a80000;
+      display: block;
+    }
+
+    .reminder {
+      margin-top: 14px;
+      font-size: 11px;
+      color: #605e5c;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <span class="header-icon">🏢</span>
+      <h2>Kantoordag aanmaken</h2>
+    </div>
+
+    <label for="datePicker">Datum</label>
+    <input type="date" id="datePicker"/>
+
+    <div class="info-box">
+      <strong>Afspraak details:</strong>
+      Titel: Kantoordag<br>
+      Type: Hele dag<br>
+      Na openen: stel "Vrij" en categorie in
+    </div>
+
+    <button onclick="maakKantoordag()">📅 Maak Kantoordag aan</button>
+
+    <div id="status"></div>
+
+    <p class="reminder" id="reminder" style="display:none">
+      ✏️ Vergeet niet de beschikbaarheid op <strong>Vrij</strong> te zetten
+      en de categorie <strong>Fysiek aanwezig</strong> toe te voegen voordat je opslaat.
+    </p>
+  </div>
+
+  <script>
+    Office.onReady(function () {
+      // Standaard datum = vandaag
+      var today = new Date();
+      document.getElementById('datePicker').value = formatDate(today);
+    });
+
+    function formatDate(date) {
+      var yyyy = date.getFullYear();
+      var mm = String(date.getMonth() + 1).padStart(2, '0');
+      var dd = String(date.getDate()).padStart(2, '0');
+      return yyyy + '-' + mm + '-' + dd;
+    }
+
+    function maakKantoordag() {
+      var dateStr = document.getElementById('datePicker').value;
+      var statusEl = document.getElementById('status');
+      var reminderEl = document.getElementById('reminder');
+
+      if (!dateStr) {
+        statusEl.className = 'error';
+        statusEl.innerText = '⚠️ Kies eerst een datum.';
+        return;
+      }
+
+      var parts = dateStr.split('-');
+      var year  = parseInt(parts[0]);
+      var month = parseInt(parts[1]) - 1; // 0-gebaseerd
+      var day   = parseInt(parts[2]);
+
+      // Hele dag: 00:00 t/m 23:59 lokale tijd
+      var startDate = new Date(year, month, day,  0,  0, 0);
+      var endDate   = new Date(year, month, day, 23, 59, 0);
+
+      try {
+        Office.context.mailbox.displayNewAppointmentForm({
+          subject: 'Kantoordag',
+          start:   startDate,
+          end:     endDate,
+          body:    ''
+        });
+
+        var datumLeesbaar = startDate.toLocaleDateString('nl-NL', {
+          weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+        });
+
+        statusEl.className = 'success';
+        statusEl.innerText = '✅ Afspraakformulier geopend voor ' + datumLeesbaar + '.';
+        reminderEl.style.display = 'block';
+
+      } catch (e) {
+        statusEl.className = 'error';
+        statusEl.innerText = '❌ Fout: ' + e.message;
+        reminderEl.style.display = 'none';
+      }
+    }
+  </script>
+</body>
+</html>

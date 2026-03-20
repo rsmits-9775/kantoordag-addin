@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OfficeApp
+  xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
+  xsi:type="MailApp">
+
+  <!-- VERVANG JOUWGEBRUIKERSNAAM door jouw GitHub gebruikersnaam -->
+
+  <Id>613FE471-A2B8-470C-888D-7C8B37C20F91</Id>
+  <Version>1.0.0</Version>
+  <ProviderName>Ruben</ProviderName>
+  <DefaultLocale>nl-NL</DefaultLocale>
+  <DisplayName DefaultValue="Kantoordag"/>
+  <Description DefaultValue="Maak snel een Kantoordag afspraak aan"/>
+  <IconUrl DefaultValue="https://JOUWGEBRUIKERSNAAM.github.io/kantoordag-addin/icon32.png"/>
+  <HighResolutionIconUrl DefaultValue="https://JOUWGEBRUIKERSNAAM.github.io/kantoordag-addin/icon80.png"/>
+  <SupportUrl DefaultValue="https://github.com/JOUWGEBRUIKERSNAAM/kantoordag-addin"/>
+
+  <AppDomains>
+    <AppDomain>https://JOUWGEBRUIKERSNAAM.github.io</AppDomain>
+  </AppDomains>
+
+  <Hosts>
+    <Host Name="Mailbox"/>
+  </Hosts>
+
+  <Requirements>
+    <Sets>
+      <Set Name="Mailbox" MinVersion="1.1"/>
+    </Sets>
+  </Requirements>
+
+  <FormSettings>
+    <Form xsi:type="ItemRead">
+      <DesktopSettings>
+        <SourceLocation DefaultValue="https://JOUWGEBRUIKERSNAAM.github.io/kantoordag-addin/taskpane.html"/>
+        <RequestedHeight>300</RequestedHeight>
+      </DesktopSettings>
+    </Form>
+  </FormSettings>
+
+  <Permissions>ReadWriteItem</Permissions>
+  <Rule xsi:type="RuleCollection" Mode="Or">
+    <Rule xsi:type="ItemIs" ItemType="Message" FormType="Read"/>
+  </Rule>
+
+  <VersionOverrides xmlns="http://schemas.microsoft.com/office/mailappversionoverrides" xsi:type="VersionOverridesV1_0">
+    <Requirements>
+      <bt:Sets DefaultMinVersion="1.3">
+        <bt:Set Name="Mailbox"/>
+      </bt:Sets>
+    </Requirements>
+    <Hosts>
+      <Host xsi:type="MailHost">
+        <DesktopFormFactor>
+          <FunctionFile resid="Commands.Url"/>
+          <ExtensionPoint xsi:type="MessageReadCommandSurface">
+            <OfficeTab id="TabDefault">
+              <Group id="kantoordagGroup">
+                <Label resid="GroupLabel"/>
+                <Control xsi:type="Button" id="kantoordagButton">
+                  <Label resid="Button.Label"/>
+                  <Supertip>
+                    <Title resid="Button.Label"/>
+                    <Description resid="Button.Tooltip"/>
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="Icon.16x16"/>
+                    <bt:Image size="32" resid="Icon.32x32"/>
+                    <bt:Image size="80" resid="Icon.80x80"/>
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <TaskpaneId>KantoordagPane</TaskpaneId>
+                    <SourceLocation resid="Taskpane.Url"/>
+                  </Action>
+                </Control>
+              </Group>
+            </OfficeTab>
+          </ExtensionPoint>
+        </DesktopFormFactor>
+      </Host>
+    </Hosts>
+    <Resources>
+      <bt:Images>
+        <bt:Image id="Icon.16x16" DefaultValue="https://JOUWGEBRUIKERSNAAM.github.io/kantoordag-addin/icon16.png"/>
+        <bt:Image id="Icon.32x32" DefaultValue="https://JOUWGEBRUIKERSNAAM.github.io/kantoordag-addin/icon32.png"/>
+        <bt:Image id="Icon.80x80" DefaultValue="https://JOUWGEBRUIKERSNAAM.github.io/kantoordag-addin/icon80.png"/>
+      </bt:Images>
+      <bt:Urls>
+        <bt:Url id="Commands.Url" DefaultValue="https://JOUWGEBRUIKERSNAAM.github.io/kantoordag-addin/commands.html"/>
+        <bt:Url id="Taskpane.Url" DefaultValue="https://JOUWGEBRUIKERSNAAM.github.io/kantoordag-addin/taskpane.html"/>
+      </bt:Urls>
+      <bt:ShortStrings>
+        <bt:String id="GroupLabel" DefaultValue="Agenda"/>
+        <bt:String id="Button.Label" DefaultValue="Kantoordag"/>
+      </bt:ShortStrings>
+      <bt:LongStrings>
+        <bt:String id="Button.Tooltip" DefaultValue="Maak een hele-dag afspraak 'Kantoordag' aan"/>
+      </bt:LongStrings>
+    </Resources>
+  </VersionOverrides>
+</OfficeApp>
